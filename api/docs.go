@@ -121,8 +121,8 @@ const docTemplate = `{
                             "$ref": "#/definitions/types.Todo"
                         }
                     },
-                    "400": {
-                        "description": "Bad Request",
+                    "404": {
+                        "description": "Not Found",
                         "schema": {
                             "type": "string"
                         }
