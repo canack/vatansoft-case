@@ -1,0 +1,31 @@
+version: "3.7"
+
+services:
+  mysqldb:
+    container_name: "todo-db"
+    environment:
+      MYSQL_ROOT_PASSWORD: "123"
+      MYSQL_DATABASE: "todos"
+    build:
+      context: .
+      dockerfile: mysql.Dockerfile
+    restart: always
+    networks:
+      - serviceNet
+
+  todo-api:
+    container_name: "todo-api"
+    build:
+      context: .
+      dockerfile: todo-api.Dockerfile
+    depends_on:
+      - "mysqldb"
+    restart: always
+    networks:
+      - serviceNet
+    ports:
+      - "1323:1323"
+
+networks:
+  serviceNet:
+    driver: bridge
