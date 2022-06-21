@@ -1,0 +1,235 @@
+definitions:
+  types.CreateTodo:
+    properties:
+      content:
+        example: Bugün 30 dakika koşu ve 30 dakika esneme yapacağım
+        type: string
+      priority:
+        example: 3
+        type: integer
+      title:
+        example: Egzersiz planım
+        type: string
+    type: object
+  types.StatusTodo:
+    properties:
+      completed:
+        example: true
+        type: boolean
+    type: object
+  types.Todo:
+    properties:
+      completed:
+        example: true
+        type: boolean
+      content:
+        example: 30 Dakika koşu, 30 dakika meditasyon
+        type: string
+      created_at:
+        example: "2022-06-21T19:37:56+03:00"
+        type: string
+      priority:
+        example: 10
+        type: integer
+      title:
+        example: Günlük antrenman
+        type: string
+      updated_at:
+        example: "2022-06-21T19:37:56+03:00"
+        type: string
+      uuid:
+        example: 6c9c1545-8631-4b01-9ae1-8b8d11acd028
+        type: string
+    type: object
+  types.UpdateTodo:
+    properties:
+      content:
+        example: Değiştirilecek örnek bir içerik
+        type: string
+      priority:
+        example: 5
+        type: integer
+      title:
+        example: Değiştirilecek örnek bir başlık
+        type: string
+    type: object
+info:
+  contact: {}
+  description: |-
+    Vatansoft tarafından gönderilen case için yazılmış interaktif talimatlar bütünü
+    Todo api kullanım talimatlarını içerir.
+  title: Todo api
+  version: "1.0"
+paths:
+  /todo/:
+    get:
+      consumes:
+      - application/json
+      description: json array olarak todo'ları döner
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/types.Todo'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+      summary: Bütün todo'ları döner
+      tags:
+      - todo
+    post:
+      consumes:
+      - application/json
+      description: Bir todo oluşturur ve o todo'ya ait UUIDv4 döner
+      parameters:
+      - description: Todo içeriği
+        in: body
+        name: todo
+        required: true
+        schema:
+          $ref: '#/definitions/types.CreateTodo'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: UUIDv4
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "502":
+          description: Bad Gateway
+          schema:
+            type: string
+      summary: Yeni bir todo oluşturur
+      tags:
+      - todo
+  /todo/{UUIDv4}:
+    delete:
+      consumes:
+      - application/json
+      description: Todo siler ve boolean dönüş yapar
+      parameters:
+      - description: Todo UUIDv4
+        in: path
+        name: UUIDv4
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: boolean
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Todo siler
+      tags:
+      - todo
+    get:
+      consumes:
+      - application/json
+      description: json olarak todo döner
+      parameters:
+      - description: Todo UUIDv4
+        in: path
+        name: UUIDv4
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/types.Todo'
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "405":
+          description: Method Not Allowed
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Verilen UUIDv4 göre todo döner
+      tags:
+      - todo
+    patch:
+      consumes:
+      - application/json
+      description: Devam eden todo'nun durumunu günceller ve başarılıysa boolean döner
+      parameters:
+      - description: Todo UUIDv4
+        in: path
+        name: UUIDv4
+        required: true
+        type: string
+      - description: Todo durumu
+        in: body
+        name: todo
+        required: true
+        schema:
+          $ref: '#/definitions/types.StatusTodo'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: boolean
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Todo durumunu günceller
+      tags:
+      - todo
+    put:
+      consumes:
+      - application/json
+      description: Todo içeriğini günceller ve boolean döner
+      parameters:
+      - description: Todo UUIDv4
+        in: path
+        name: UUIDv4
+        required: true
+        type: string
+      - description: Todo içeriği
+        in: body
+        name: todo
+        required: true
+        schema:
+          $ref: '#/definitions/types.UpdateTodo'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: boolean
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Todo içeriğini günceller
+      tags:
+      - todo
+swagger: "2.0"
