@@ -27,7 +27,7 @@ docker-compose up # Gerekli tüm servisleri başlatır.
 
 # Servislerin başlatılma süresi, makina gücüne göre biraz zaman alabilir.
 # Echo framework'un başlatılıp, istek almaya hazır hale geldiğini gördüğünüzde deneyebilirsiniz. 
-# İşlemler tamamlandıktan sonra localhost:3434/swagger/index.html adresi üzerinden test edebilirsiniz
+# İşlemler tamamlandıktan sonra localhost:1323/swagger/index.html adresi üzerinden test edebilirsiniz
 
 # Kapatmak için:
 # CTRL + C
