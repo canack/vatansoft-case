@@ -13,9 +13,7 @@
 
 ## Kullanım:
 
-### Bu case'in kaynak kodlarını; docker&docker-swarm kullanarak bir makine üzerinde veya online olarak hazır bir şekilde test edebilirsiniz.
-
-### Online demo: [vatansoft.vivy.network/swagger/index.html](http://vatansoft.vivy.network/swagger/index.html)
+### Bu case'in kaynak kodlarını; docker&docker-swarm kullanarak test edebilirsiniz.
 
 ###  Docker:
 ```shell
